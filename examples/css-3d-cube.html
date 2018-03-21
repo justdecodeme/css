@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS 3D cube</title>
+  <style>
+    body {
+      /* background: black; */
+    }
+    .outer {
+      /* background: rgba(0,0,0,0.1); */
+      width: 400px;
+      height: 400px;
+      margin: 200px auto 0;
+      position: relative;
+      perspective: 1000px;
+      animation: rotate-cube 10s linear infinite;
+    }
+    .inner {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-origin: center center;
+    }
+    .front {
+      background: rgba(255,0,0,0.1);
+      transform: translateZ(200px);
+    }
+    .back {
+      background: rgba(0,255,0,0.1);
+      transform: translateZ(-200px);
+    }
+    .left {
+      background: rgba(0,0,255,0.1);
+      transform: translateX(-200px) rotateY(90deg);
+    }
+    .right {
+      background: rgba(255,255,0,0.1);
+      transform: translateX(200px) rotateY(90deg);
+    }
+    .top {
+      background: rgba(0,255,255,0.1);
+      transform: translateY(-200px) rotateX(90deg);
+    }
+    .bottom {
+      background: rgba(255,0,255,0.1);
+      transform: translateY(200px) rotateX(90deg);
+    }
+
+    @keyframes rotate-cube {
+        to {
+            transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="outer">
+    <div class="inner front"></div>
+    <div class="inner back"></div>
+    <div class="inner left"></div>
+    <div class="inner right"></div>
+    <div class="inner top"></div>
+    <div class="inner bottom"></div>
+  </div>
+</body>
+</html>
