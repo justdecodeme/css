@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Conic Gradient</title>
+  <style>
+    html {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh
+    }
+    .rays {
+      /* new property  */
+      width: 80vmin;
+      height: 80vmin;
+      border-radius: 50%;
+      background: linear-gradient(#b53, #f90);
+      /* background-image: conic-gradient(yellowgreen 30%, coral 0 70%, magenta 0) */
+      -webkit-mask-image: repeating-conic-gradient(#000 0% 2.5%, transparent 0% 5%);
+    }
+  </style>
+</head>
+<body>
+  <div class='rays'></div>
+</body>
+</html>
