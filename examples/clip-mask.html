@@ -6,24 +6,33 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Conic Gradient</title>
   <style>
-    html {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh
+    * {
+      /* Old/Deprecated */
+      /* clip: rect(10px, 20px, 30px, 40px); */
     }
-    .rays {
-      /* new property  */
-      width: 80vmin;
-      height: 80vmin;
-      border-radius: 50%;
-      background: linear-gradient(#b53, #f90);
-      /* background-image: conic-gradient(yellowgreen 30%, coral 0 70%, magenta 0) */
-      -webkit-mask-image: repeating-conic-gradient(#000 0% 2.5%, transparent 0% 5%);
+    img {
+      width: 200px;
+    }
+    .clip-circle {
+      clip-path: circle(60px at center);
+    }
+    .clip-ellipse {
+      clip-path: ellipse(60px 40px at center);
+    }
+    .clip-polygon {
+      clip-path: polygon(5% 5%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
     }
   </style>
 </head>
 <body>
-  <div class='rays'></div>
+  <script>
+    // NOTES:
+    // Masks are images; Clips are paths.
+    // Clips are always vector paths. Outside the path is transparent, inside the path is opaque.
+  </script>
+  <img src="mac.jpg">
+  <img class="clip-circle" src="mac.jpg">
+  <img class="clip-ellipse" src="mac.jpg">
+  <img class="clip-pollygon" src="mac.jpg">
 </body>
 </html>
