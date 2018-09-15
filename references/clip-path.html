@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Clip Path</title>
+    <style>
+        body:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        p {
+            margin: 0 0 10px 0;
+        }
+        .wrapper {
+            float: left;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+        }
+        img {
+            width: 200px;
+        }
+        .circle  { clip-path: circle(50% at 50% 50%); }
+        .ellipse { clip-path: ellipse(25% 50% at 50% 50%); }
+        .polygon { clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%); }
+        .inset   { clip-path: inset(10px 20px 30px 40px round 20px); }
+        .svg     { clip-path: url(#myPath); }
+        .anim    { 
+            clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+            animation: polygons 4s alternate infinite;
+        }
+        @keyframes polygons {
+            25% {
+                clip-path: polygon(20% 0%, 100% 38%, 70% 90%, 0% 100%);
+                background: pink;
+            }
+            50% {
+                clip-path: polygon(0 46%, 100% 15%, 55% 74%, 0 100%);
+                background: orange;
+            }
+            75% {
+                clip-path: polygon(100% 38%, 100% 38%, 66% 100%, 0 53%);
+                background: cornflowerblue;
+            }
+        }        
+    </style>
+</head>
+<body>
+    <!-- 
+        The clip-path property in CSS allows you to specify a specific region of an element to display, rather than showing the complete area. 
+        There used to be a clip property, but note that is deprecated. 
+    -->
+    <div class="wrapper">
+        <p><code>circle</code></p>
+        <img src="assets/1.jpg" class="circle">
+    </div>
+    <div class="wrapper">
+        <p><code>ellipse</code></p>
+        <img src="assets/1.jpg" class="ellipse">
+    </div>
+    <div class="wrapper">
+        <p><code>polygon</code></p>
+        <img src="assets/1.jpg" class="polygon">
+    </div>
+    <div class="wrapper">
+        <p><code>inset</code></p>
+        <img src="assets/1.jpg" class="inset">
+    </div>
+    <div class="wrapper">
+        <p><code>svg</code></p>
+        <img src="assets/1.jpg" class="svg">
+    </div>
+    <div class="wrapper">
+        <p><code>animation</code></p>
+        <img src="assets/1.jpg" class="anim">
+    </div>
+
+    <svg height="0" width="0">
+        <clipPath id="myPath" clipPathUnits="objectBoundingBox">
+            <path d="M0.5,1
+            C 0.5,1,0,0.7,0,0.3
+            A 0.25,0.25,1,1,1,0.5,0.3
+            A 0.25,0.25,1,1,1,1,0.3
+            C 1,0.7,0.5,1,0.5,1 Z" />
+        </clipPath>
+    </svg>
+</body>
+</html>
