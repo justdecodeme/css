@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+  <title>Selectors</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body>h1 {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    h2 {
+      padding: 10px;
+    }
+
+    ul {
+      /* background: lightgreen; */
+    }
+
+    li {
+      background: lightblue;
+      margin-bottom: 10px;
+    }
+
+    .content {
+      display: flex;
+    }
+
+    .css,
+    .html,
+    .output {
+      background: aqua;
+      width: 33.33%;
+      border: 1px solid black;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>CSS Selectors</h1>
+  <ul>
+    <li>
+      <h2>Universal Selector (*)</h2>
+      <div class="content">
+        <div class="css">
+          <code>
+                * {
+                  color: blue;
+                }
+              </code>
+        </div>
+        <div class="html">
+          <h1>Heading</h1>
+          <p>Paragraph</p>
+          <a href="#">Link</a>
+        </div>
+        <div class="output">
+          <iframe src="" frameborder="0">
+            <h1>heading</h1>
+          </iframe>
+        </div>
+      </div>
+    </li>
+    <li>
+      <h2>Descendant Selector (div span)</h2>
+      <div class="content">
+        <div class="css">
+          <code>
+                * {
+                  color: blue;
+                }
+              </code>
+        </div>
+        <div class="html">
+          <h1>Heading</h1>
+          <p>Paragraph</p>
+          <a href="#">Link</a>
+        </div>
+        <div class="output"></div>
+      </div>
+    </li>
+    <li>
+      <h2>Child Selector (div > span)</h2>
+      <div class="content">
+        <div class="css">
+          <code>
+                * {
+                  color: blue;
+                }
+              </code>
+        </div>
+        <div class="html">
+          <h1>Heading</h1>
+          <p>Paragraph</p>
+          <a href="#">Link</a>
+        </div>
+        <div class="output"></div>
+      </div>
+    </li>
+  </ul>
+
+  <script>
+    var content = `
+      <h1>Heading</h1>
+      <p>Paragraph</p>
+      <a href="#">Link</a>    
+    `;
+
+    var iframe = document.createElement("iframe");
+    document.body.appendChild(iframe);
+
+    var frameDoc = iframe.document;
+    if (iframe.contentWindow)
+      frameDoc = iframe.contentWindow.document; // IE
+    // Write into iframe
+    frameDoc.open();
+    frameDoc.writeln(content);
+    frameDoc.close();  
+  </script>
+</body>
+
+</html>
