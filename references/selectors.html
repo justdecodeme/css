@@ -63,14 +63,14 @@
       'universal': {
         'heading': `Universal Selector (*)`,
         'css': `
-          * {
-            color: blue;
-          }
+* {
+  color: blue;
+}
         `,
         'html': `
-          &lt;h1&gt;Heading&lt;/h1&gt;
-          &lt;p&gt;Paragraph&lt;/p&gt;
-          &lt;a href="#"&gt;Link&lt;/a&gt;
+&lt;h1&gt;Heading&lt;/h1&gt;
+&lt;p&gt;Paragraph&lt;/p&gt;
+&lt;a href="#"&gt;Link&lt;/a&gt;
         `,
         'output': `
           <h1>Heading 1</h1>
@@ -81,15 +81,14 @@
       'descendant': {
         'heading': `Descendant Selector (div span)`,
         'css': `
-          div span {
-            color: blue;
-          }
+div span {
+  color: blue;
+}
         `,
         'html': `
-          &lt;h1&gt;Heading&lt;/h1&gt;
-          &lt;p&gt;Paragraph&lt;/p&gt;
-          &lt;a href="#"&gt;Link&lt;/a&gt;
-        `,
+&lt;h1&gt;Heading&lt;/h1&gt;
+&lt;p&gt;Paragraph&lt;/p&gt;
+&lt;a href="#"&gt;Link&lt;/a&gt;`,
         'output': `
           <h1>Heading 2</h1>
           <p>Paragraph</p>
@@ -99,14 +98,14 @@
       'child': {
         'heading': `Child Selector (div > span)`,
         'css': `
-          div > span {
-            color: blue;
-          }
+div > span {
+  color: blue;
+}
         `,
         'html': `
-          &lt;h1&gt;Heading&lt;/h1&gt;
-          &lt;p&gt;Paragraph&lt;/p&gt;
-          &lt;a href="#"&gt;Link&lt;/a&gt;
+&lt;h1&gt;Heading&lt;/h1&gt;
+&lt;p&gt;Paragraph&lt;/p&gt;
+&lt;a href="#"&gt;Link&lt;/a&gt;
         `,
         'output': `
           <h1>Heading 3</h1>
