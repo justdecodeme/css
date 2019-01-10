@@ -21,20 +21,24 @@
 
     body>h1 {
       text-align: center;
-      margin: 20px 0;
+      margin: 10px 0;
     }
 
     h2 {
-      padding: 10px;
+      padding: 5px;
+      font-size: 16px;
+      background: orange;
+    }
+    h3 {
+      background: grey;
+      padding: 5px 10px;
+      font-size: 14px;
+      font-weight: normal;
+      letter-spacing: 1px;    
     }
 
     ul {
       /* background: lightgreen; */
-    }
-
-    li {
-      background: lightblue;
-      margin-bottom: 10px;
     }
 
     .content {
@@ -44,10 +48,16 @@
     .css,
     .html,
     .output {
-      background: aqua;
+      background: #2d2d2d;
       width: 33.33%;
       border: 1px solid black;
-      padding: 10px;
+    }
+    .output {
+      background: white;
+    }
+    pre[class*="language-"] {
+      padding: 0 0 0 10px;
+      margin: 0;
     }
   </style>
 </head>
@@ -59,12 +69,30 @@
   <ul id="selectorsListing"></ul>
 
   <script>
+    var html = `
+&lt;div&gt;
+  &lt;span&gt;span 1&lt;/span&gt;
+  &lt;h1&gt;heading 1 &lt;span&gt;span 2&lt;/span&gt;&lt;/h1&gt;
+  &lt;p&gt;paragraph 1&lt;/p&gt;
+  &lt;span&gt;span 2&lt;/span&gt;
+&lt;/div&gt;    
+`;
+
+    var output = `
+<div>
+  <span>span 1</span>
+  <h1>heading 1 <span>span 2</span></h1>
+  <p>paragraph 1</p>
+  <span>span 2</span>
+</div> 
+`;
+
     var contentObj = {
       'universal': {
         'heading': `Universal Selector (*)`,
         'css': `
 * {
-  color: blue;
+  color: red;
 }
         `,
         'html': `
@@ -82,41 +110,57 @@
         'heading': `Descendant Selector (div span)`,
         'css': `
 div span {
-  color: blue;
+  color: red;
 }
         `,
         'html': `
-&lt;h1&gt;Heading&lt;/h1&gt;
-&lt;p&gt;Paragraph&lt;/p&gt;
-&lt;a href="#"&gt;Link&lt;/a&gt;`,
+&lt;div&gt;
+  &lt;span&gt;span 1&lt;/span&gt;
+  &lt;h1&gt;heading 1 &lt;span&gt;span 2&lt;/span&gt;&lt;/h1&gt;
+  &lt;p&gt;paragraph 1&lt;/p&gt;
+  &lt;span&gt;span 2&lt;/span&gt;
+&lt;/div&gt;  
+`,
         'output': `
-          <h1>Heading 2</h1>
-          <p>Paragraph</p>
-          <a href="#">Link</a>           
+        <div>
+          <span>span 1</span>
+          <h1>heading 1 <span>span 2</span></h1>
+          <p>paragraph 1</p>
+          <span>span 2</span>
+        </div>           
         `
       },
       'child': {
         'heading': `Child Selector (div > span)`,
         'css': `
 div > span {
-  color: blue;
+  color: red;
 }
         `,
         'html': `
-&lt;h1&gt;Heading&lt;/h1&gt;
-&lt;p&gt;Paragraph&lt;/p&gt;
-&lt;a href="#"&gt;Link&lt;/a&gt;
+&lt;div&gt;
+  &lt;span&gt;span 1&lt;/span&gt;
+  &lt;h1&gt;heading 1 &lt;span&gt;span 2&lt;/span&gt;&lt;/h1&gt;
+  &lt;p&gt;paragraph 1&lt;/p&gt;
+  &lt;span&gt;span 2&lt;/span&gt;
+&lt;/div&gt;
         `,
         'output': `
-          <h1>Heading 3</h1>
-          <p>Paragraph</p>
-          <a href="#">Link</a>           
+        <div>
+          <span>span 1</span>
+          <h1>heading 1 <span>span 2</span></h1>
+          <p>paragraph 1</p>
+          <span>span 2</span>
+        </div>           
         `
       }
     }
     var ul = document.getElementById('selectorsListing');
     var inner = '';
 
+    /************************/
+    /* loop for updating css and html */
+    /************************/
     for (var key in contentObj) {
       if (contentObj.hasOwnProperty(key)) {
         inner += `
@@ -124,16 +168,15 @@ div > span {
             <h2>${contentObj[key]['heading']}</h2>
             <div class="content">
               <div class="css">
-                <pre>
-                  <code class="language-css">${contentObj[key]['css']}</code>
-                </pre>              
+                <h3>CSS</h3>
+                <pre><code class="language-css">${contentObj[key]['css']}</code></pre>              
               </div>
               <div class="html">
-                <pre>
-                  <code class="language-html">${contentObj[key]['html']}</code>
-                </pre>               
-              </div>
+                <h3>HTML</h3>
+                <pre><code class="language-html">${html}</code></pre>               
+                </div>
               <div class="output">
+                <h3>Result</h3>
                 <iframe frameborder="0"></iframe>
               </div>
             </div>       
@@ -143,6 +186,9 @@ div > span {
     }    
     ul.innerHTML = inner;
 
+    /************************/
+    /* loop for updating iframe */
+    /************************/
     for (var key in contentObj) {
       if (contentObj.hasOwnProperty(key)) {
         
@@ -152,7 +198,12 @@ div > span {
           frameDoc = iframe.contentWindow.document; // IE
         // Write into iframe
         frameDoc.open();
-        frameDoc.writeln(contentObj[key]['output']);
+        frameDoc.writeln(
+          "<style>"+
+          contentObj[key]['css']+
+          "</style>"+
+          output
+          );
         frameDoc.close();         
       }
     }
