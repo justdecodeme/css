@@ -73,90 +73,186 @@
 
   <script>
     function htmlencode(str) {
-        return str.replace(/[&<>"']/g, function($0) {
-            return "&" + {"&":"amp", "<":"lt", ">":"gt", '"':"quot", "'":"#39"}[$0] + ";";
-        });
+      return str.replace(/[&<>"']/g, function ($0) {
+        return "&" + {
+          "&": "amp",
+          "<": "lt",
+          ">": "gt",
+          '"': "quot",
+          "'": "#39"
+        } [$0] + ";";
+      });
+    }
+    function titleCase(str) {
+      // var splitStr = str.toLowerCase().split(' ');
+      var splitStr = str.split(' ');
+      for (var i = 0; i < splitStr.length; i++) {
+          // You do not need to check if i is larger than splitStr length, as your for does that for you
+          // Assign it back to the array
+          splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+      }
+      // Directly return the joined string
+      return splitStr.join(' '); 
     }
 
     var contentObj = {
-////////////////////// universal 
-'universal': {
-  'heading': `Universal Selector (*)`,
-  'css': `
-  * {
-    color: red;
-  }
-  `,
-  'html': `
-  <h1>Heading</h1>
-  <p>Paragraph</p>
-  <a href="#">Link</a>           
+      ////////////////////// universal 
+      'universal': {
+        'heading': `universal selector (*) - CSS2`,
+        'css': `
+* {
+  color: red;
+}
+`,
+        'html': `
+<h1>Heading</h1>
+<p>Paragraph</p>
+<a href="#">Link</a>           
   `
-},
-////////////////////// tag 
-'tag': {
-'heading': `Tag Selector (p)`,
-'css': `
+      },
+      ////////////////////// tag 
+      'tag': {
+        'heading': `tag selector (E) - CSS1`,
+        'css': `
 p {
   background-color: yellow;
 }
 `,
-'html': `
+        'html': `
 <h1>Heading</h1>
-<p>Paragraph 1</p>
-<a href="#">Link</a>           
-<p>Paragraph 2</p>
+<p>Paragraph</p>
+<a href="#">Link</a>  
 `
-},
-////////////////////// descendant 
-'descendant': {
-'heading': `Descendant Selector (div span)`,
-'css': `
+      },
+      ////////////////////// multiple 
+      'multiple': {
+        'heading': `multiple selector (E1, E2) - CSS1`,
+        'css': `
+h1, a {
+  background-color: yellow;
+}
+`,
+        'html': `
+<h1>Heading</h1>
+<p>Paragraph</p>
+<a href="#">Link</a>           
+`
+      },      
+      ////////////////////// descendant 
+      'descendant': {
+        'heading': `descendant selector (E F) - CSS1`,
+        'css': `
 div span {
   background-color: yellow;
 }
 `,
-'html': `
+        'html': `
 <div>
   <span>span 1</span>
   <p>paragraph <span>span 2</span></p>
 </div>           
 `
-},
-////////////////////// child 
-'child': {
-'heading': `Child Selector (div > span)`,
-'css': `
+      },
+      ////////////////////// child 
+      'child': {
+        'heading': `child selector (E > F) - CSS2`,
+        'css': `
 div > span {
   background-color: yellow;
 }
 `,
-'html': `
+        'html': `
 <div>
   <span>span 1</span>
   <p>paragraph <span>span 2</span></p>
 </div>            
 `
-},
+      },
+      ////////////////////// class 
+      'class': {
+        'heading': `class selector (.class-name) - CSS1`,
+        'css': `
+.highlight {
+  background-color: yellow;
 }
+`,
+        'html': `
+<h1 class="highlight">Heading</h1>
+<p class="highlight">Paragraph</p>
+<a href="#">Link</a>           
+`
+      },
+      ////////////////////// id 
+      'id': {
+        'heading': `id selector (#idName) - CSS1`,
+        'css': `
+#highlight {
+  background-color: yellow;
+}
+`,
+        'html': `
+<h1 id="highlight">Heading</h1>
+<p class="highlight">Paragraph</p>
+<a href="#">Link</a>           
+`
+      },
+    }
     var ul = document.getElementById('selectorsListing');
     var inner = '';
 
     /************************/
-    /* loop for updating css and html */
+    /* loop for updating css and html - NORMAL order*/
     /************************/
-    for (var key in contentObj) {
-      if (contentObj.hasOwnProperty(key)) {
-        inner +=
-          `
+    // for (var key in contentObj) {
+    //   if (contentObj.hasOwnProperty(key)) {
+    //     inner +=
+    //       `
+    //       <li id="${key}">
+    //         <h2>${contentObj[key]['heading']}</h2>
+    //         <div class="content">
+    //           <div class="css">
+    //             <pre><code class="language-css">${contentObj[key]['css']}</code></pre>              
+    //           </div>
+    //           <div class="html">
+    //             <pre><code class="language-html">${htmlencode(contentObj[key]['html'])}</code></pre>               
+    //             </div>
+    //           <div class="output">
+    //             <iframe frameborder="0"></iframe>
+    //           </div>
+    //         </div>       
+    //       </li> 
+    //     `;
+    //   }
+    // }
+    // ul.innerHTML = inner;
+
+    /************************/
+    /* loop for updating css and html - REVERSE order*/
+    /************************/
+    // f is a function that has the obj as 'this' and the property name as first parameter
+    function reverseForIn(obj, f) {
+      var arr = [];
+      for (var key in obj) {
+        // add hasOwnPropertyCheck if needed
+        arr.push(key);
+      }
+      for (var i = arr.length - 1; i >= 0; i--) {
+        f.call(obj, arr[i]);
+      }
+      ul.innerHTML = inner;
+    }
+    //usage
+    reverseForIn(contentObj, function (key) {
+      inner +=
+        `
           <li id="${key}">
-            <h2>${contentObj[key]['heading']}</h2>
+            <h2>${titleCase(this[key]['heading'])}</h2>
             <div class="content">
               <div class="css">
-                <pre><code class="language-css">${contentObj[key]['css']}</code></pre>              
+                <pre><code class="language-css">${this[key]['css']}</code></pre>              
               </div>
               <div class="html">
-                <pre><code class="language-html">${htmlencode(contentObj[key]['html'])}</code></pre>               
+                <pre><code class="language-html">${htmlencode(this[key]['html'])}</code></pre>               
                 </div>
               <div class="output">
                 <iframe frameborder="0"></iframe>
@@ -164,9 +260,7 @@ div > span {
             </div>       
           </li> 
         `;
-      }
-    }
-    ul.innerHTML = inner;
+    });
 
     /************************/
     /* loop for updating iframe */
