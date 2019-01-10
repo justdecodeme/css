@@ -138,6 +138,34 @@ h1, a {
 <a href="#">Link</a>           
 `
       },      
+      ////////////////////// class 
+      'class': {
+        'heading': `class selector (.class-name) - CSS1`,
+        'css': `
+.highlight {
+  background-color: yellow;
+}
+`,
+        'html': `
+<h1 class="highlight">Heading</h1>
+<p class="highlight">Paragraph</p>
+<a href="#">Link</a>           
+`
+      },
+      ////////////////////// id 
+      'id': {
+        'heading': `id selector (#idName) - CSS1`,
+        'css': `
+#highlight {
+  background-color: yellow;
+}
+`,
+        'html': `
+<h1 id="highlight">Heading</h1>
+<p class="highlight">Paragraph</p>
+<a href="#">Link</a>           
+`
+      },      
       ////////////////////// descendant 
       'descendant': {
         'heading': `descendant selector (E F) - CSS1`,
@@ -168,32 +196,132 @@ div > span {
 </div>            
 `
       },
-      ////////////////////// class 
-      'class': {
-        'heading': `class selector (.class-name) - CSS1`,
+      ////////////////////// adjacent sibling 
+      'adjacent': {
+        'heading': `adjacent sibling selector (E + F) - CSS2`,
         'css': `
-.highlight {
+p + span {
   background-color: yellow;
 }
 `,
         'html': `
-<h1 class="highlight">Heading</h1>
-<p class="highlight">Paragraph</p>
-<a href="#">Link</a>           
+<div>
+  <span>span 1</span>
+  <p>paragraph <span>span 2</span></p>
+  <span>span 3</span>
+  <span>span 4</span>
+</div>            
 `
       },
-      ////////////////////// id 
-      'id': {
-        'heading': `id selector (#idName) - CSS1`,
+      ////////////////////// sibling 
+      'sibling': {
+        'heading': `sibling selector (E ~ F) - CSS3`,
         'css': `
-#highlight {
+p ~ span {
   background-color: yellow;
 }
 `,
         'html': `
-<h1 id="highlight">Heading</h1>
-<p class="highlight">Paragraph</p>
-<a href="#">Link</a>           
+<div>
+  <span>span 1</span>
+  <p>paragraph <span>span 2</span></p>
+  <span>span 3</span>
+  <span>span 4</span>
+</div>            
+`
+      },
+      ////////////////////// [attribute] 
+      'attribute1': {
+        'heading': `[attribute] selector - CSS2`,
+        'css': `
+[class] {
+  background-color: yellow;
+}
+`,
+        'html': `
+<p class="yellow">Paragraph 1</p>          
+<p class="green">Paragraph 2</p>          
+<p>Paragraph 3</p>          
+<p class="green">Paragraph 4</p>          
+<input type="text" placeholder="First Name">           
+<input type="text" placeholder="Last Name">           
+<input type="email" placeholder="example@gmail.com">           
+<input type="password" placeholder="password">           
+`
+      },
+      ////////////////////// [attribute=value]
+      'attribute2': {
+        'heading': `[attribute=value] slector - CSS2`,
+        'css': `
+[class=yellow] {
+  background-color: yellow;
+}
+`,
+        'html': `
+<p class="info-big yellow">Paragraph 1</p>          
+<p class="green">Paragraph 2</p>          
+<p class="yellow">Paragraph 3</p>          
+<p class="green">Paragraph 4</p>       
+`
+      },
+      ////////////////////// [attribute~=value]
+      'attribute3': {
+        'heading': `[attribute~=value] slector - CSS2`,
+        'css': `
+[class~=yellow] {
+  background-color: yellow;
+}
+`,
+        'html': `
+<p class="info-big yellow">Paragraph 1</p>          
+<p class="info-small green">Paragraph 2</p>          
+<p class="info-big-success yellow">Paragraph 3</p>          
+<p class="info-small-success green">Paragraph 4</p>          
+`
+      },
+      ////////////////////// [attribute^=value]
+      'attribute4': {
+        'heading': `[attribute^=value] slector - CSS2`,
+        'css': `
+[class^=info] {
+  background-color: yellow;
+}
+`,
+        'html': `
+<p class="alert-big">Paragraph 1</p>          
+<p class="info-small">Paragraph 2</p>          
+<p class="alert-big-success">Paragraph 3</p>          
+<p class="info-small-success">Paragraph 4</p>          
+`
+      },
+      ////////////////////// [attribute$=value]
+      'attribute5': {
+        'heading': `[attribute$=value] slector - CSS2`,
+        'css': `
+[class$=success] {
+  background-color: yellow;
+}
+`,
+        'html': `
+<p class="alert-big">Paragraph 1</p>          
+<p class="info-small">Paragraph 2</p>          
+<p class="info-big-success">Paragraph 3</p>          
+<p class="alert-small-success">Paragraph 4</p>          
+`
+      },
+      ////////////////////// [attribute*=value]
+      'attribute5': {
+        'heading': `[attribute*=value] slector - CSS2`,
+        'css': `
+[class*=small] {
+  background-color: yellow;
+}
+`,
+        'html': `
+<p class="alert-big">Paragraph 1</p>          
+<p class="info-small">Paragraph 2</p>          
+<p class="info-small-success">Paragraph 3</p>          
+<p class="small-success">Paragraph 4</p>          
 `
       },
     }
