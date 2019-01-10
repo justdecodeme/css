@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+  <link href="assets/css/prism.css" rel="stylesheet" />
+  <title>Selectors</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body>h1 {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    h2 {
+      padding: 10px;
+    }
+
+    ul {
+      /* background: lightgreen; */
+    }
+
+    li {
+      background: lightblue;
+      margin-bottom: 10px;
+    }
+
+    .content {
+      display: flex;
+    }
+
+    .css,
+    .html,
+    .output {
+      background: aqua;
+      width: 33.33%;
+      border: 1px solid black;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>CSS Selectors</h1>
+  
+  <!-- all listing is handled by json and js -->
+  <ul id="selectorsListing"></ul>
+
+  <script>
+    var contentObj = {
+      'universal': {
+        'heading': `Universal Selector (*)`,
+        'css': `
+          * {
+            color: blue;
+          }
+        `,
+        'html': `
+          &lt;h1&gt;Heading&lt;/h1&gt;
+          &lt;p&gt;Paragraph&lt;/p&gt;
+          &lt;a href="#"&gt;Link&lt;/a&gt;
+        `,
+        'output': `
+          <h1>Heading 1</h1>
+          <p>Paragraph</p>
+          <a href="#">Link</a>           
+        `
+      },
+      'descendant': {
+        'heading': `Descendant Selector (div span)`,
+        'css': `
+          div span {
+            color: blue;
+          }
+        `,
+        'html': `
+          &lt;h1&gt;Heading&lt;/h1&gt;
+          &lt;p&gt;Paragraph&lt;/p&gt;
+          &lt;a href="#"&gt;Link&lt;/a&gt;
+        `,
+        'output': `
+          <h1>Heading 2</h1>
+          <p>Paragraph</p>
+          <a href="#">Link</a>           
+        `
+      },
+      'child': {
+        'heading': `Child Selector (div > span)`,
+        'css': `
+          div > span {
+            color: blue;
+          }
+        `,
+        'html': `
+          &lt;h1&gt;Heading&lt;/h1&gt;
+          &lt;p&gt;Paragraph&lt;/p&gt;
+          &lt;a href="#"&gt;Link&lt;/a&gt;
+        `,
+        'output': `
+          <h1>Heading 3</h1>
+          <p>Paragraph</p>
+          <a href="#">Link</a>           
+        `
+      }
+    }
+    var ul = document.getElementById('selectorsListing');
+    var inner = '';
+
+    for (var key in contentObj) {
+      if (contentObj.hasOwnProperty(key)) {
+        inner += `
+          <li id="${key}">
+            <h2>${contentObj[key]['heading']}</h2>
+            <div class="content">
+              <div class="css">
+                <pre>
+                  <code class="language-css">${contentObj[key]['css']}</code>
+                </pre>              
+              </div>
+              <div class="html">
+                <pre>
+                  <code class="language-html">${contentObj[key]['html']}</code>
+                </pre>               
+              </div>
+              <div class="output">
+                <iframe frameborder="0"></iframe>
+              </div>
+            </div>       
+          </li> 
+        `;
+      }
+    }    
+    ul.innerHTML = inner;
+
+    for (var key in contentObj) {
+      if (contentObj.hasOwnProperty(key)) {
+        
+        var iframe = document.getElementById(key).querySelector('iframe');
+        var frameDoc = iframe.document;
+        if (iframe.contentWindow)
+          frameDoc = iframe.contentWindow.document; // IE
+        // Write into iframe
+        frameDoc.open();
+        frameDoc.writeln(contentObj[key]['output']);
+        frameDoc.close();         
+      }
+    }
+  </script>
+
+  <script src="assets/js/prism.js"></script>
+</body>
+
+</html>
