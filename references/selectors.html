@@ -27,14 +27,15 @@
     h2 {
       padding: 5px;
       font-size: 16px;
-      background: orange;
+      background: rgba(0, 0, 0, 0.3);
     }
+
     h3 {
       background: grey;
       padding: 5px 10px;
       font-size: 14px;
       font-weight: normal;
-      letter-spacing: 1px;    
+      letter-spacing: 1px;
     }
 
     ul {
@@ -52,9 +53,11 @@
       width: 33.33%;
       border: 1px solid black;
     }
+
     .output {
       background: white;
     }
+
     pre[class*="language-"] {
       padding: 0 0 0 10px;
       margin: 0;
@@ -64,97 +67,78 @@
 
 <body>
   <h1>CSS Selectors</h1>
-  
+
   <!-- all listing is handled by json and js -->
   <ul id="selectorsListing"></ul>
 
   <script>
-    var html = `
-&lt;div&gt;
-  &lt;span&gt;span 1&lt;/span&gt;
-  &lt;h1&gt;heading 1 &lt;span&gt;span 2&lt;/span&gt;&lt;/h1&gt;
-  &lt;p&gt;paragraph 1&lt;/p&gt;
-  &lt;span&gt;span 2&lt;/span&gt;
-&lt;/div&gt;    
-`;
-
-    var output = `
-<div>
-  <span>span 1</span>
-  <h1>heading 1 <span>span 2</span></h1>
-  <p>paragraph 1</p>
-  <span>span 2</span>
-</div> 
-`;
+    function htmlencode(str) {
+        return str.replace(/[&<>"']/g, function($0) {
+            return "&" + {"&":"amp", "<":"lt", ">":"gt", '"':"quot", "'":"#39"}[$0] + ";";
+        });
+    }
 
     var contentObj = {
-      'universal': {
-        'heading': `Universal Selector (*)`,
-        'css': `
-* {
-  color: red;
+////////////////////// universal 
+'universal': {
+  'heading': `Universal Selector (*)`,
+  'css': `
+  * {
+    color: red;
+  }
+  `,
+  'html': `
+  <h1>Heading</h1>
+  <p>Paragraph</p>
+  <a href="#">Link</a>           
+  `
+},
+////////////////////// tag 
+'tag': {
+'heading': `Tag Selector (p)`,
+'css': `
+p {
+  background-color: yellow;
 }
-        `,
-        'html': `
-&lt;h1&gt;Heading&lt;/h1&gt;
-&lt;p&gt;Paragraph&lt;/p&gt;
-&lt;a href="#"&gt;Link&lt;/a&gt;
-        `,
-        'output': `
-          <h1>Heading 1</h1>
-          <p>Paragraph</p>
-          <a href="#">Link</a>           
-        `
-      },
-      'descendant': {
-        'heading': `Descendant Selector (div span)`,
-        'css': `
-div span {
-  color: red;
-}
-        `,
-        'html': `
-&lt;div&gt;
-  &lt;span&gt;span 1&lt;/span&gt;
-  &lt;h1&gt;heading 1 &lt;span&gt;span 2&lt;/span&gt;&lt;/h1&gt;
-  &lt;p&gt;paragraph 1&lt;/p&gt;
-  &lt;span&gt;span 2&lt;/span&gt;
-&lt;/div&gt;  
 `,
-        'output': `
-        <div>
-          <span>span 1</span>
-          <h1>heading 1 <span>span 2</span></h1>
-          <p>paragraph 1</p>
-          <span>span 2</span>
-        </div>           
-        `
-      },
-      'child': {
-        'heading': `Child Selector (div > span)`,
-        'css': `
-div > span {
-  color: red;
+'html': `
+<h1>Heading</h1>
+<p>Paragraph 1</p>
+<a href="#">Link</a>           
+<p>Paragraph 2</p>
+`
+},
+////////////////////// descendant 
+'descendant': {
+'heading': `Descendant Selector (div span)`,
+'css': `
+div span {
+  background-color: yellow;
 }
-        `,
-        'html': `
-&lt;div&gt;
-  &lt;span&gt;span 1&lt;/span&gt;
-  &lt;h1&gt;heading 1 &lt;span&gt;span 2&lt;/span&gt;&lt;/h1&gt;
-  &lt;p&gt;paragraph 1&lt;/p&gt;
-  &lt;span&gt;span 2&lt;/span&gt;
-&lt;/div&gt;
-        `,
-        'output': `
-        <div>
-          <span>span 1</span>
-          <h1>heading 1 <span>span 2</span></h1>
-          <p>paragraph 1</p>
-          <span>span 2</span>
-        </div>           
-        `
-      }
-    }
+`,
+'html': `
+<div>
+  <span>span 1</span>
+  <p>paragraph <span>span 2</span></p>
+</div>           
+`
+},
+////////////////////// child 
+'child': {
+'heading': `Child Selector (div > span)`,
+'css': `
+div > span {
+  background-color: yellow;
+}
+`,
+'html': `
+<div>
+  <span>span 1</span>
+  <p>paragraph <span>span 2</span></p>
+</div>            
+`
+},
+}
     var ul = document.getElementById('selectorsListing');
     var inner = '';
 
@@ -163,27 +147,25 @@ div > span {
     /************************/
     for (var key in contentObj) {
       if (contentObj.hasOwnProperty(key)) {
-        inner += `
+        inner +=
+          `
           <li id="${key}">
             <h2>${contentObj[key]['heading']}</h2>
             <div class="content">
               <div class="css">
-                <h3>CSS</h3>
                 <pre><code class="language-css">${contentObj[key]['css']}</code></pre>              
               </div>
               <div class="html">
-                <h3>HTML</h3>
-                <pre><code class="language-html">${html}</code></pre>               
+                <pre><code class="language-html">${htmlencode(contentObj[key]['html'])}</code></pre>               
                 </div>
               <div class="output">
-                <h3>Result</h3>
                 <iframe frameborder="0"></iframe>
               </div>
             </div>       
           </li> 
         `;
       }
-    }    
+    }
     ul.innerHTML = inner;
 
     /************************/
@@ -191,7 +173,7 @@ div > span {
     /************************/
     for (var key in contentObj) {
       if (contentObj.hasOwnProperty(key)) {
-        
+
         var iframe = document.getElementById(key).querySelector('iframe');
         var frameDoc = iframe.document;
         if (iframe.contentWindow)
@@ -199,12 +181,12 @@ div > span {
         // Write into iframe
         frameDoc.open();
         frameDoc.writeln(
-          "<style>"+
-          contentObj[key]['css']+
-          "</style>"+
-          output
-          );
-        frameDoc.close();         
+          "<style>" +
+          contentObj[key]['css'] +
+          "</style>" +
+          contentObj[key]['html']
+        );
+        frameDoc.close();
       }
     }
   </script>
