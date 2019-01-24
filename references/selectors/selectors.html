@@ -6,7 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
-  <link href="assets/css/prism.css" rel="stylesheet" />
+  <!-- <link rel="stylesheet" href="css/codemirror.css"> -->
+  <!-- <link rel="stylesheet" href="css/material.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css">
+  <link rel="stylesheet" href="https://codemirror.net/theme/twilight.css">
+  <!-- <link href="css/prism.css" rel="stylesheet" /> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.js"></script>
+  <script src="https://cdn.jsdelivr.net/codemirror/3.21.0/mode/xml/xml.js"></script>
+  <script src="addons/htmlmixed.js"></script>
+  <script src="addons/css.js"></script>
   <title>Selectors</title>
   <style>
     * {
@@ -49,7 +57,7 @@
     .css,
     .html,
     .output {
-      background: #2d2d2d;
+      /* background: #2d2d2d; */
       width: 33.33%;
       border: 1px solid black;
     }
@@ -68,37 +76,21 @@
 <body>
   <h1>CSS Selectors</h1>
 
+<textarea id="codeBlock">
+input:enabled {
+  height: 20px;
+  width: 20px;
+}
+</textarea>
+
   <!-- all listing is handled by json and js -->
   <ul id="selectorsListing"></ul>
 
   <script>
-    function htmlencode(str) {
-      return str.replace(/[&<>"']/g, function ($0) {
-        return "&" + {
-          "&": "amp",
-          "<": "lt",
-          ">": "gt",
-          '"': "quot",
-          "'": "#39"
-        } [$0] + ";";
-      });
-    }
-    function titleCase(str) {
-      // var splitStr = str.toLowerCase().split(' ');
-      var splitStr = str.split(' ');
-      for (var i = 0; i < splitStr.length; i++) {
-          // You do not need to check if i is larger than splitStr length, as your for does that for you
-          // Assign it back to the array
-          splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
-      }
-      // Directly return the joined string
-      return splitStr.join(' '); 
-    }
-
     var contentObj = {
       ////////////////////// universal 
       'universal': {
-        'heading': `universal selector (*) - CSS2`,
+        'heading': `universal selector (*)`,
         'css': `
 * {
   color: red;
@@ -112,7 +104,7 @@
       },
       ////////////////////// tag 
       'tag': {
-        'heading': `tag selector (E) - CSS1`,
+        'heading': `tag selector (E)`,
         'css': `
 p {
   background-color: yellow;
@@ -126,7 +118,7 @@ p {
       },
       ////////////////////// multiple 
       'multiple': {
-        'heading': `multiple selector (E1, E2) - CSS1`,
+        'heading': `multiple selector (E1, E2)`,
         'css': `
 h1, a {
   background-color: yellow;
@@ -140,7 +132,7 @@ h1, a {
       },      
       ////////////////////// class 
       'class': {
-        'heading': `class selector (.class-name) - CSS1`,
+        'heading': `class selector (.class-name)`,
         'css': `
 .highlight {
   background-color: yellow;
@@ -154,7 +146,7 @@ h1, a {
       },
       ////////////////////// id 
       'id': {
-        'heading': `id selector (#idName) - CSS1`,
+        'heading': `id selector (#idName)`,
         'css': `
 #highlight {
   background-color: yellow;
@@ -168,7 +160,7 @@ h1, a {
       },      
       ////////////////////// descendant 
       'descendant': {
-        'heading': `descendant selector (E F) - CSS1`,
+        'heading': `descendant selector (E F)`,
         'css': `
 div span {
   background-color: yellow;
@@ -183,7 +175,7 @@ div span {
       },
       ////////////////////// child 
       'child': {
-        'heading': `child selector (E > F) - CSS2`,
+        'heading': `child selector (E > F)`,
         'css': `
 div > span {
   background-color: yellow;
@@ -198,7 +190,7 @@ div > span {
       },
       ////////////////////// adjacent sibling 
       'adjacent': {
-        'heading': `adjacent sibling selector (E + F) - CSS2`,
+        'heading': `adjacent sibling selector (E + F)`,
         'css': `
 p + span {
   background-color: yellow;
@@ -215,7 +207,7 @@ p + span {
       },
       ////////////////////// sibling 
       'sibling': {
-        'heading': `sibling selector (E ~ F) - CSS3`,
+        'heading': `sibling selector (E ~ F)`,
         'css': `
 p ~ span {
   background-color: yellow;
@@ -232,7 +224,7 @@ p ~ span {
       },
       ////////////////////// [attribute] 
       'attribute1': {
-        'heading': `[attribute] selector - CSS2`,
+        'heading': `[attribute] selector`,
         'css': `
 [class] {
   background-color: yellow;
@@ -251,7 +243,7 @@ p ~ span {
       },
       ////////////////////// [attribute=value]
       'attribute2': {
-        'heading': `[attribute=value] slector - CSS2`,
+        'heading': `[attribute=value] slector`,
         'css': `
 [class=yellow] {
   background-color: yellow;
@@ -266,7 +258,7 @@ p ~ span {
       },
       ////////////////////// [attribute~=value]
       'attribute3': {
-        'heading': `[attribute~=value] slector - CSS2`,
+        'heading': `[attribute~=value] slector`,
         'css': `
 [class~=yellow] {
   background-color: yellow;
@@ -281,7 +273,7 @@ p ~ span {
       },
       ////////////////////// [attribute^=value]
       'attribute4': {
-        'heading': `[attribute^=value] slector - CSS2`,
+        'heading': `[attribute^=value] slector`,
         'css': `
 [class^=info] {
   background-color: yellow;
@@ -296,7 +288,7 @@ p ~ span {
       },
       ////////////////////// [attribute$=value]
       'attribute5': {
-        'heading': `[attribute$=value] slector - CSS2`,
+        'heading': `[attribute$=value] slector`,
         'css': `
 [class$=success] {
   background-color: yellow;
@@ -310,8 +302,8 @@ p ~ span {
 `
       },
       ////////////////////// [attribute*=value]
-      'attribute5': {
-        'heading': `[attribute*=value] slector - CSS2`,
+      'attribute6': {
+        'heading': `[attribute*=value] slector`,
         'css': `
 [class*=small] {
   background-color: yellow;
@@ -324,96 +316,70 @@ p ~ span {
 <p class="small-success">Paragraph 4</p>          
 `
       },
-    }
-    var ul = document.getElementById('selectorsListing');
-    var inner = '';
-
-    /************************/
-    /* loop for updating css and html - NORMAL order*/
-    /************************/
-    // for (var key in contentObj) {
-    //   if (contentObj.hasOwnProperty(key)) {
-    //     inner +=
-    //       `
-    //       <li id="${key}">
-    //         <h2>${contentObj[key]['heading']}</h2>
-    //         <div class="content">
-    //           <div class="css">
-    //             <pre><code class="language-css">${contentObj[key]['css']}</code></pre>              
-    //           </div>
-    //           <div class="html">
-    //             <pre><code class="language-html">${htmlencode(contentObj[key]['html'])}</code></pre>               
-    //             </div>
-    //           <div class="output">
-    //             <iframe frameborder="0"></iframe>
-    //           </div>
-    //         </div>       
-    //       </li> 
-    //     `;
-    //   }
-    // }
-    // ul.innerHTML = inner;
-
-    /************************/
-    /* loop for updating css and html - REVERSE order*/
-    /************************/
-    // f is a function that has the obj as 'this' and the property name as first parameter
-    function reverseForIn(obj, f) {
-      var arr = [];
-      for (var key in obj) {
-        // add hasOwnPropertyCheck if needed
-        arr.push(key);
-      }
-      for (var i = arr.length - 1; i >= 0; i--) {
-        f.call(obj, arr[i]);
-      }
-      ul.innerHTML = inner;
-    }
-    //usage
-    reverseForIn(contentObj, function (key) {
-      inner +=
-        `
-          <li id="${key}">
-            <h2>${titleCase(this[key]['heading'])}</h2>
-            <div class="content">
-              <div class="css">
-                <pre><code class="language-css">${this[key]['css']}</code></pre>              
-              </div>
-              <div class="html">
-                <pre><code class="language-html">${htmlencode(this[key]['html'])}</code></pre>               
-                </div>
-              <div class="output">
-                <iframe frameborder="0"></iframe>
-              </div>
-            </div>       
-          </li> 
-        `;
-    });
-
-    /************************/
-    /* loop for updating iframe */
-    /************************/
-    for (var key in contentObj) {
-      if (contentObj.hasOwnProperty(key)) {
-
-        var iframe = document.getElementById(key).querySelector('iframe');
-        var frameDoc = iframe.document;
-        if (iframe.contentWindow)
-          frameDoc = iframe.contentWindow.document; // IE
-        // Write into iframe
-        frameDoc.open();
-        frameDoc.writeln(
-          "<style>" +
-          contentObj[key]['css'] +
-          "</style>" +
-          contentObj[key]['html']
-        );
-        frameDoc.close();
-      }
+      ////////////////////// ::before, ::after Selector
+      'before': {
+        'heading': `::before, ::after slector`,
+        'css': `
+h3::before {
+  content: "Q. ";
+}
+h3::after {
+  content: "?";
+}
+`,
+        'html': `
+<h3>What is your name</h3>
+<p>My name is Rakko</p>                 
+`
+      },
+      ////////////////////// :checked Selector
+      'checked': {
+        'heading': `:checked slector`,
+        'css': `
+input:checked {
+  opacity: .5;
+}
+`,
+        'html': `
+<input type="checkbox">
+<input type="radio">                 
+`
+      },
+      ////////////////////// :disabled Selector
+      'disabled': {
+        'heading': `:disabled slector`,
+        'css': `
+input:disabled {
+  height: 20px;
+  width: 20px;
+}
+`,
+        'html': `
+<input type="checkbox" disabled>
+<input type="radio">                 
+`
+      },
+      ////////////////////// :enabled Selector
+      'enabled': {
+        'heading': `:enabled slector`,
+        'css': `
+input:enabled {
+  height: 20px;
+  width: 20px;
+}
+`,
+        'html': `
+<input type="checkbox" disabled>
+<input type="radio">                 
+`
+      },
     }
   </script>
+  <!-- <script src="js/codemirror.js"></script> -->
+  <script src="addons/matchbrackets.js"></script>
+  <!-- <script src="js/prism.js"></script> -->
+  <script src="js/script.js"></script>
 
-  <script src="assets/js/prism.js"></script>
 </body>
 
 </html>
