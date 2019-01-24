@@ -28,57 +28,18 @@ var inner = '';
 /************************/
 /* loop for updating css and html - NORMAL order*/
 /************************/
-// for (var key in contentObj) {
-//   if (contentObj.hasOwnProperty(key)) {
-//     inner +=
-//       `
-//       <li id="${key}">
-//         <h2>${contentObj[key]['heading']}</h2>
-//         <div class="content">
-//           <div class="css">
-//             <pre><code class="language-css">${contentObj[key]['css']}</code></pre>              
-//           </div>
-//           <div class="html">
-//             <pre><code class="language-html">${htmlencode(contentObj[key]['html'])}</code></pre>               
-//             </div>
-//           <div class="output">
-//             <iframe frameborder="0"></iframe>
-//           </div>
-//         </div>       
-//       </li> 
-//     `;
-//   }
-// }
-// ul.innerHTML = inner;
-
-/************************/
-/* loop for updating css and html - REVERSE order*/
-/************************/
-// f is a function that has the obj as 'this' and the property name as first parameter
-function reverseForIn(obj, f) {
-    var arr = [];
-    for (var key in obj) {
-        // add hasOwnPropertyCheck if needed
-        arr.push(key);
-    }
-    for (var i = arr.length - 1; i >= 0; i--) {
-        f.call(obj, arr[i]);
-    }
-    ul.innerHTML = inner;
-}
-
-//usage
-reverseForIn(contentObj, function (key) {
+for (var key in contentObj) {
+  if (contentObj.hasOwnProperty(key)) {
     inner +=
-        `
+      `
       <li id="${key}">
-        <h2>${titleCase(this[key]['heading'])}</h2>
+        <h2>${contentObj[key]['heading']}</h2>
         <div class="content">
           <div class="css">
-            <pre><code class="language-css">${this[key]['css']}</code></pre>              
+            <textarea>${contentObj[key]['css']}</textarea>              
           </div>
           <div class="html">
-            <pre><code class="language-html">${htmlencode(this[key]['html'])}</code></pre>               
+            <textarea>${htmlencode(contentObj[key]['html'])}</textarea>               
             </div>
           <div class="output">
             <iframe frameborder="0"></iframe>
@@ -86,7 +47,74 @@ reverseForIn(contentObj, function (key) {
         </div>       
       </li> 
     `;
-});
+  }
+}
+ul.innerHTML = inner;
+
+var li = ul.querySelectorAll('li');
+for(var i = 0; i < li.length; i++) {
+
+    var textareaCSS = li[i].querySelector('.css textarea');
+    let codemirrorCSS = CodeMirror.fromTextArea(textareaCSS, {
+        lineNumbers     : true,
+        lineWrapping    : true,
+        mode            : "css",
+        htmlMode        : true,
+        theme           : "twilight",
+        tabSize         : 4,
+        indentUnit      : 4
+    });    
+
+    var textareaHTML = li[i].querySelector('.html textarea');
+    let codemirrorHTML = CodeMirror.fromTextArea(textareaHTML, {
+        lineNumbers     : true,
+        lineWrapping    : true,
+        mode            : "htmlmixed",
+        htmlMode        : true,
+        theme           : "twilight",
+        tabSize         : 4,
+        indentUnit      : 4
+    });    
+
+}
+
+
+/************************/
+/* loop for updating css and html - REVERSE order*/
+/************************/
+// f is a function that has the obj as 'this' and the property name as first parameter
+// function reverseForIn(obj, f) {
+//     var arr = [];
+//     for (var key in obj) {
+//         // add hasOwnPropertyCheck if needed
+//         arr.push(key);
+//     }
+//     for (var i = arr.length - 1; i >= 0; i--) {
+//         f.call(obj, arr[i]);
+//     }
+//     ul.innerHTML = inner;
+// }
+
+//USAGE
+// reverseForIn(contentObj, function (key) {
+//     inner +=
+//         `
+//       <li id="${key}">
+//         <h2>${titleCase(this[key]['heading'])}</h2>
+//         <div class="content">
+//           <div class="css">
+//             <pre><code class="language-css">${this[key]['css']}</code></pre>              
+//           </div>
+//           <div class="html">
+//             <pre><code class="language-html">${htmlencode(this[key]['html'])}</code></pre>               
+//             </div>
+//           <div class="output">
+//             <iframe frameborder="0"></iframe>
+//           </div>
+//         </div>       
+//       </li> 
+//     `;
+// });
 
 /************************/
 /* loop for updating iframe */
@@ -109,21 +137,3 @@ for (var key in contentObj) {
         frameDoc.close();
     }
 }
-
-
-// var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-//     lineNumbers: true,
-//     styleActiveLine: true,
-//     matchBrackets: true
-// });
-
-// The codeMirror editor object
-let codemirror = CodeMirror.fromTextArea(document.getElementById("codeBlock"), {
-        lineNumbers     : true,
-        lineWrapping    : true,
-        mode            : "css",
-        htmlMode        : true,
-        theme           : "twilight",
-        tabSize         : 4,
-        indentUnit      : 4
-});
