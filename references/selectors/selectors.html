@@ -5,13 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet"> -->
 
   <link rel="stylesheet" href="css/codemirror.css">
   <script src="js/codemirror.js"></script>
 
-  <script src="addons/htmlmixed.js"></script>
   <script src="addons/css.js"></script>
+  <script src="addons/xml.js"></script>
 
   <link rel="stylesheet" href="css/twilight.css">
   <link rel="stylesheet" href="css/blackboard.css">
@@ -61,7 +61,7 @@
       /* background: #2d2d2d; */
       width: 33.33%;
       border: 1px solid black;
-      font-size: 20px;
+      font-size: 16px;
     }
 
     .output {
@@ -93,8 +93,7 @@
         'html': `
 <h1>Heading</h1>
 <p>Paragraph</p>
-<a href="#">Link</a>           
-  `
+<a href="#">Linkasd</a>`
       },
       ////////////////////// tag 
       'tag': {
@@ -106,8 +105,7 @@ p {
         'html': `
 <h1>Heading</h1>
 <p>Paragraph</p>
-<a href="#">Link</a>  
-`
+<a href="#">Link</a>`
       },
       ////////////////////// multiple 
       'multiple': {
@@ -119,8 +117,7 @@ h1, a {
         'html': `
 <h1>Heading</h1>
 <p>Paragraph</p>
-<a href="#">Link</a>           
-`
+<a href="#">Link</a>`
       },      
       ////////////////////// class 
       'class': {
@@ -132,8 +129,7 @@ h1, a {
         'html': `
 <h1 class="highlight">Heading</h1>
 <p class="highlight">Paragraph</p>
-<a href="#">Link</a>           
-`
+<a href="#">Link</a>`
       },
       ////////////////////// id 
       'id': {
@@ -145,8 +141,7 @@ h1, a {
         'html': `
 <h1 id="highlight">Heading</h1>
 <p class="highlight">Paragraph</p>
-<a href="#">Link</a>           
-`
+<a href="#">Link</a>`
       },      
       ////////////////////// descendant 
       'descendant': {
@@ -159,8 +154,7 @@ div span {
 <div>
   <span>span 1</span>
   <p>paragraph <span>span 2</span></p>
-</div>           
-`
+</div>`
       },
       ////////////////////// child 
       'child': {
@@ -173,8 +167,7 @@ div > span {
 <div>
   <span>span 1</span>
   <p>paragraph <span>span 2</span></p>
-</div>            
-`
+</div>`
       },
       ////////////////////// adjacent sibling 
       'adjacent': {
@@ -189,8 +182,7 @@ p + span {
   <p>paragraph <span>span 2</span></p>
   <span>span 3</span>
   <span>span 4</span>
-</div>            
-`
+</div>`
       },
       ////////////////////// sibling 
       'sibling': {
@@ -205,8 +197,7 @@ p ~ span {
   <p>paragraph <span>span 2</span></p>
   <span>span 3</span>
   <span>span 4</span>
-</div>            
-`
+</div>`
       },
       ////////////////////// [attribute] 
       'attribute1': {
@@ -223,8 +214,7 @@ p ~ span {
 <input type="text" placeholder="First Name">           
 <input type="text" placeholder="Last Name">           
 <input type="email" placeholder="example@gmail.com">           
-<input type="password" placeholder="password">           
-`
+<input type="password" placeholder="password">`
       },
       ////////////////////// [attribute=value]
       'attribute2': {
@@ -237,8 +227,7 @@ p ~ span {
 <p class="info-big yellow">Paragraph 1</p>          
 <p class="green">Paragraph 2</p>          
 <p class="yellow">Paragraph 3</p>          
-<p class="green">Paragraph 4</p>       
-`
+<p class="green">Paragraph 4</p>`
       },
       ////////////////////// [attribute~=value]
       'attribute3': {
@@ -251,8 +240,7 @@ p ~ span {
 <p class="info-big yellow">Paragraph 1</p>          
 <p class="info-small green">Paragraph 2</p>          
 <p class="info-big-success yellow">Paragraph 3</p>          
-<p class="info-small-success green">Paragraph 4</p>          
-`
+<p class="info-small-success green">Paragraph 4</p>`
       },
       ////////////////////// [attribute^=value]
       'attribute4': {
@@ -265,8 +253,7 @@ p ~ span {
 <p class="alert-big">Paragraph 1</p>          
 <p class="info-small">Paragraph 2</p>          
 <p class="alert-big-success">Paragraph 3</p>          
-<p class="info-small-success">Paragraph 4</p>          
-`
+<p class="info-small-success">Paragraph 4</p>`
       },
       ////////////////////// [attribute$=value]
       'attribute5': {
@@ -279,8 +266,7 @@ p ~ span {
 <p class="alert-big">Paragraph 1</p>          
 <p class="info-small">Paragraph 2</p>          
 <p class="info-big-success">Paragraph 3</p>          
-<p class="alert-small-success">Paragraph 4</p>          
-`
+<p class="alert-small-success">Paragraph 4</p>`
       },
       ////////////////////// [attribute*=value]
       'attribute6': {
@@ -293,8 +279,7 @@ p ~ span {
 <p class="alert-big">Paragraph 1</p>          
 <p class="info-small">Paragraph 2</p>          
 <p class="info-small-success">Paragraph 3</p>          
-<p class="small-success">Paragraph 4</p>          
-`
+<p class="small-success">Paragraph 4</p>`
       },
       ////////////////////// ::before, ::after Selector
       'before': {
@@ -308,8 +293,7 @@ h3::after {
 }`,
         'html': `
 <h3>What is your name</h3>
-<p>My name is Rakko</p>                 
-`
+<p>My name is Rakko</p>`
       },
       ////////////////////// :checked Selector
       'checked': {
@@ -320,8 +304,7 @@ input:checked {
 }`,
         'html': `
 <input type="checkbox">
-<input type="radio">                 
-`
+<input type="radio">`
       },
       ////////////////////// :disabled Selector
       'disabled': {
@@ -333,8 +316,7 @@ input:disabled {
 }`,
         'html': `
 <input type="checkbox" disabled>
-<input type="radio">                 
-`
+<input type="radio">`
       },
       ////////////////////// :enabled Selector
       'enabled': {
@@ -346,8 +328,7 @@ input:enabled {
 }`,
         'html': `
 <input type="checkbox" disabled>
-<input type="radio">                 
-`
+<input type="radio">`
       },
     }
   </script>

@@ -1,3 +1,8 @@
+var inner = '',
+    ul = document.getElementById('selectorsListing'),
+    timer = null
+;
+
 function htmlencode(str) {
     return str.replace(/[&<>"']/g, function ($0) {
         return "&" + {
@@ -22,8 +27,29 @@ function titleCase(str) {
     return splitStr.join(' ');
 }
 
-var ul = document.getElementById('selectorsListing');
-var inner = '';
+function updateOutput(evt) {
+    clearTimeout(timer);
+    
+    timer = setTimeout(function() {
+        var parent = evt.display.wrapper.closest('li');
+        var css = parent.querySelector('.css .CodeMirror').CodeMirror;
+        var html = parent.querySelector('.html .CodeMirror').CodeMirror;
+        var iframe = parent.querySelector('.output iframe');
+        var frameDoc = iframe.document;
+
+        if (iframe.contentWindow)
+            frameDoc = iframe.contentWindow.document; // IE
+        // Write into iframe
+        frameDoc.open();
+        frameDoc.writeln(
+            "<style>" +
+            css.getValue() +
+            "</style>" +
+            html.getValue()
+        );
+        frameDoc.close();
+    }, 500)
+}
 
 /************************/
 /* loop for updating css and html - NORMAL order*/
@@ -64,17 +90,25 @@ for(var i = 0; i < li.length; i++) {
         tabSize         : 4,
         indentUnit      : 4
     });    
-
+    codemirrorCSS.on("change", updateOutput);
+    // codemirrorCSS.on("change", function() {
+    //     codemirrorCSS.save();
+    // });    
+    
     var textareaHTML = li[i].querySelector('.html textarea');
     let codemirrorHTML = CodeMirror.fromTextArea(textareaHTML, {
         lineNumbers     : true,
         lineWrapping    : true,
-        mode            : "htmlmixed",
+        mode            : "xml",
         htmlMode        : true,
         theme           : "twilight",
         tabSize         : 4,
         indentUnit      : 4
     });    
+    codemirrorHTML.on("change", updateOutput);
+    // codemirrorHTML.on("change", function() {
+    //     codemirrorHTML.save();
+    // });
 
 }
 
