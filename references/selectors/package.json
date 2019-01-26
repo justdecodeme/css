@@ -1,0 +1,62 @@
+{
+  "name": "multiboard",
+  "version": "1.0.0",
+  "description": "multiboard",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "build"
+  },
+  "build": {
+    "appId": "com.weball.io.css.selectors",
+    "productName": "css selectors",
+    "copyright": "Copyright ©️ 2019",
+    "asar": false,
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": false,
+      "deleteAppDataOnUninstall": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "displayLanguageSelector": true,
+      "shortcutName": "css selectors",
+      "menuCategory": "css selectors"
+    }
+  },
+  "keywords": [
+    "multiboard",
+    "tosho",
+    "book",
+    "learning",
+    "xLab"
+  ],
+  "author": "rakko",
+  "license": "Copyright ©️ 2019",
+  "devDependencies": {
+    "electron": "~1.7.8",
+    "electron-builder": "^19.46.9",
+    "gulp-sourcemaps": "^2.6.4"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "image-size": "^0.6.1",
+    "minify-all": "^1.2.2",
+    "node-minify": "^2.4.1",
+    "browser-sync": "^2.23.3",
+    "gulp-connect": "^5.2.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-minifier": "^1.2.2",
+    "gulp-minify": "^2.1.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-riot": "^1.1.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-watch": "^4.3.11"
+  }
+}

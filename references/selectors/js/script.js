@@ -80,7 +80,6 @@ ul.innerHTML = inner;
 
 var li = ul.querySelectorAll('li');
 for(var i = 0; i < li.length; i++) {
-
     var textareaCSS = li[i].querySelector('.css textarea');
     let codemirrorCSS = CodeMirror.fromTextArea(textareaCSS, {
         lineNumbers     : true,
@@ -92,9 +91,6 @@ for(var i = 0; i < li.length; i++) {
         indentUnit      : 2
     });    
     codemirrorCSS.on("change", updateOutput);
-    // codemirrorCSS.on("change", function() {
-    //     codemirrorCSS.save();
-    // });    
     
     var textareaHTML = li[i].querySelector('.html textarea');
     let codemirrorHTML = CodeMirror.fromTextArea(textareaHTML, {
@@ -107,10 +103,6 @@ for(var i = 0; i < li.length; i++) {
         indentUnit      : 2
     });    
     codemirrorHTML.on("change", updateOutput);
-    // codemirrorHTML.on("change", function() {
-    //     codemirrorHTML.save();
-    // });
-
 }
 
 
