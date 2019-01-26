@@ -4,29 +4,45 @@ const BrowserWindow = electron.BrowserWindow;
 
 const path = require('path');
 const url = require('url');
-const fs = require('fs')
+
+// not required when building
+// require('electron-reload')(__dirname, {
+//   electron: require('${__dirname}/../../node_modules/electron')
+// })
+
 
 app.commandLine.appendSwitch('touch-events', 'enabled');
 
 let mainWindow;
 
-function createWindow () {
-  mainWindow = new BrowserWindow();
+function createWindow() {
+  mainWindow = new BrowserWindow({
+    titleBarStyle: 'hidden',
+    width: 1281,
+    height: 800,
+    minWidth: 800,
+    minHeight: 600,
+    backgroundColor: 'red',
+    show: false
+  })
   mainWindow.maximize();
 
-  mainWindow.setFullScreen(true);
-  // mainWindow.setFullScreen(false);
+  // mainWindow.setFullScreen(true);
+  mainWindow.setFullScreen(false);
   mainWindow.setMenu(null);
+  
+  // not required when building
+  // mainWindow.webContents.openDevTools();
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'selectors.html'),
-    // pathname: path.join(__dirname, 'OEBPS/multiboard/index_1nen.xhtml'),
     protocol: 'file:',
     slashes: true
   }));
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+  })
 
   mainWindow.on('closed', function () {
     mainWindow = null;

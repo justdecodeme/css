@@ -1,8 +1,7 @@
 var inner = '',
     header = document.getElementById('header'),
     ul = document.getElementById('selectorsListing'),
-    timer = null
-;
+    timer = null;
 
 function htmlencode(str) {
     return str.replace(/[&<>"']/g, function ($0) {
@@ -30,8 +29,8 @@ function titleCase(str) {
 
 function updateOutput(evt) {
     clearTimeout(timer);
-    
-    timer = setTimeout(function() {
+
+    timer = setTimeout(function () {
         var parent = evt.display.wrapper.closest('li');
         var css = parent.querySelector('.css .CodeMirror').CodeMirror;
         var html = parent.querySelector('.html .CodeMirror').CodeMirror;
@@ -56,9 +55,9 @@ function updateOutput(evt) {
 /* loop for updating css and html - NORMAL order*/
 /************************/
 for (var key in contentObj) {
-  if (contentObj.hasOwnProperty(key)) {
-    inner +=
-      `
+    if (contentObj.hasOwnProperty(key)) {
+        inner +=
+            `
       <li id="${key}">
         <h2>${contentObj[key]['heading']}</h2>
         <div class="content">
@@ -74,34 +73,34 @@ for (var key in contentObj) {
         </div>       
       </li> 
     `;
-  }
+    }
 }
 ul.innerHTML = inner;
 
 var li = ul.querySelectorAll('li');
-for(var i = 0; i < li.length; i++) {
+for (var i = 0; i < li.length; i++) {
     var textareaCSS = li[i].querySelector('.css textarea');
     let codemirrorCSS = CodeMirror.fromTextArea(textareaCSS, {
-        lineNumbers     : true,
-        lineWrapping    : true,
-        mode            : "css",
-        htmlMode        : true,
-        theme           : "twilight",
-        tabSize         : 2,
-        indentUnit      : 2
-    });    
+        lineNumbers: true,
+        lineWrapping: true,
+        mode: "css",
+        htmlMode: true,
+        theme: "twilight",
+        tabSize: 2,
+        indentUnit: 2
+    });
     codemirrorCSS.on("change", updateOutput);
-    
+
     var textareaHTML = li[i].querySelector('.html textarea');
     let codemirrorHTML = CodeMirror.fromTextArea(textareaHTML, {
-        lineNumbers     : true,
-        lineWrapping    : true,
-        mode            : "xml",
-        htmlMode        : true,
-        theme           : "twilight",
-        tabSize         : 2,
-        indentUnit      : 2
-    });    
+        lineNumbers: true,
+        lineWrapping: true,
+        mode: "xml",
+        htmlMode: true,
+        theme: "twilight",
+        tabSize: 2,
+        indentUnit: 2
+    });
     codemirrorHTML.on("change", updateOutput);
 }
 
@@ -167,16 +166,16 @@ for (var key in contentObj) {
 
 // Header snapping effect
 var newScrollPos = 0;
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
     var scrollPos = Math.round(window.scrollY);
     var headerHeight = header.offsetHeight;
 
-    if(scrollPos > headerHeight) {
+    if (scrollPos > headerHeight) {
         document.body.classList.add('scrolling')
 
         if (scrollPos > newScrollPos) {
             // scrolling downwards
-            if(document.body.classList.contains('up')) {
+            if (document.body.classList.contains('up')) {
                 document.body.classList.add('down');
             }
             document.body.classList.remove('up');
@@ -187,11 +186,22 @@ window.addEventListener('scroll', function() {
         }
     }
 
-    if(scrollPos == 0) {
+    if (scrollPos == 0) {
         document.body.classList.remove('scrolling')
         document.body.classList.remove('up');
         document.body.classList.remove('down');
     }
 
-    newScrollPos = scrollPos;    
+    newScrollPos = scrollPos;
 })
+
+function doSomething() {
+    console.info("DOM loaded");
+}
+
+if (document.readyState === "loading") { // Loading hasn't finished yet
+    console.log('DOM loading...')
+    document.addEventListener("DOMContentLoaded", doSomething);
+} else { // `DOMContentLoaded` has already fired
+    doSomething();
+}
