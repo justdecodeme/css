@@ -1,7 +1,7 @@
 {
-  "name": "multiboard",
+  "name": "css_selectors",
   "version": "1.0.0",
-  "description": "multiboard",
+  "description": "Learn CSS Selectors interactively",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -27,13 +27,6 @@
       "menuCategory": "css selectors"
     }
   },
-  "keywords": [
-    "multiboard",
-    "tosho",
-    "book",
-    "learning",
-    "xLab"
-  ],
   "author": "rakko",
   "license": "Copyright ©️ 2019",
   "devDependencies": {
