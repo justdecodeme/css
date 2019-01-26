@@ -88,8 +88,8 @@ for(var i = 0; i < li.length; i++) {
         mode            : "css",
         htmlMode        : true,
         theme           : "twilight",
-        tabSize         : 4,
-        indentUnit      : 4
+        tabSize         : 2,
+        indentUnit      : 2
     });    
     codemirrorCSS.on("change", updateOutput);
     // codemirrorCSS.on("change", function() {
@@ -103,8 +103,8 @@ for(var i = 0; i < li.length; i++) {
         mode            : "xml",
         htmlMode        : true,
         theme           : "twilight",
-        tabSize         : 4,
-        indentUnit      : 4
+        tabSize         : 2,
+        indentUnit      : 2
     });    
     codemirrorHTML.on("change", updateOutput);
     // codemirrorHTML.on("change", function() {
@@ -173,32 +173,33 @@ for (var key in contentObj) {
     }
 }
 
-
-var scrollPos = newScrollPos = 0, headerHeight;
+// Header snapping effect
+var newScrollPos = 0;
 window.addEventListener('scroll', function() {
-    scrollPos = Math.round(window.scrollY);
-    headerHeight = header.offsetHeight;
-    
-    if(scrollPos > headerHeight + 100) {
+    var scrollPos = Math.round(window.scrollY);
+    var headerHeight = header.offsetHeight;
+
+    if(scrollPos > headerHeight) {
+        document.body.classList.add('scrolling')
+
         if (scrollPos > newScrollPos) {
             // scrolling downwards
-            if(header.classList.contains('down')) {
-                header.classList.add('up');
+            if(document.body.classList.contains('up')) {
+                document.body.classList.add('down');
             }
-            header.classList.remove('down');
+            document.body.classList.remove('up');
         } else {
             // scrolling upwards
-            document.body.style.paddingTop = headerHeight+"px";
-            header.classList.add('down');
-            header.classList.remove('up');
+            document.body.classList.add('up');
+            document.body.classList.remove('down');
         }
-    } 
-    if(scrollPos == 0) {
-        header.classList.remove('down');
-        header.classList.remove('up');
-        document.body.style.paddingTop = 0+"px";
     }
+
+    if(scrollPos == 0) {
+        document.body.classList.remove('scrolling')
+        document.body.classList.remove('up');
+        document.body.classList.remove('down');
+    }
+
     newScrollPos = scrollPos;    
-    
-    
 })
