@@ -1,4 +1,5 @@
 var inner = '',
+    header = document.getElementById('header'),
     ul = document.getElementById('selectorsListing'),
     timer = null
 ;
@@ -171,3 +172,33 @@ for (var key in contentObj) {
         frameDoc.close();
     }
 }
+
+
+var scrollPos = newScrollPos = 0, headerHeight;
+window.addEventListener('scroll', function() {
+    scrollPos = Math.round(window.scrollY);
+    headerHeight = header.offsetHeight;
+    
+    if(scrollPos > headerHeight + 100) {
+        if (scrollPos > newScrollPos) {
+            // scrolling downwards
+            if(header.classList.contains('down')) {
+                header.classList.add('up');
+            }
+            header.classList.remove('down');
+        } else {
+            // scrolling upwards
+            document.body.style.paddingTop = headerHeight+"px";
+            header.classList.add('down');
+            header.classList.remove('up');
+        }
+    } 
+    if(scrollPos == 0) {
+        header.classList.remove('down');
+        header.classList.remove('up');
+        document.body.style.paddingTop = 0+"px";
+    }
+    newScrollPos = scrollPos;    
+    
+    
+})

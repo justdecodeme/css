@@ -16,67 +16,21 @@
   <link rel="stylesheet" href="css/twilight.css">
   <link rel="stylesheet" href="css/blackboard.css">
   <link rel="stylesheet" href="css/midnight.css">
+
+  <link rel="stylesheet" href="css/style.css">
   <title>Selectors</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-    }
-
-    body>h1 {
-      text-align: center;
-      margin: 10px 0;
-    }
-
-    h2 {
-      padding: 5px;
-      font-size: 16px;
-      background: rgba(0, 0, 0, 0.3);
-    }
-
-    h3 {
-      background: grey;
-      padding: 5px 10px;
-      font-size: 14px;
-      font-weight: normal;
-      letter-spacing: 1px;
-    }
-
-    ul {
-      /* background: lightgreen; */
-    }
-
-    .content {
-      display: flex;
-    }
-
-    .css,
-    .html,
-    .output {
-      /* background: #2d2d2d; */
-      width: 33.33%;
-      border: 1px solid black;
-      font-size: 16px;
-    }
-
-    .output {
-      background: white;
-    }
-
-    pre[class*="language-"] {
-      padding: 0 0 0 10px;
-      margin: 0;
-    }
-  </style>
 </head>
 
 <body>
-  <h1>CSS Selectors</h1>
+  <header id="header">
+    <h1>CSS Selectors</h1>
+    <ul class="sub-headings">
+      <li>CSS</li>
+      <li>HTML</li>
+      <li>Output</li>
+    </ul>
+  </header>
+  
 
   <!-- all listing is handled by json and js -->
   <ul id="selectorsListing"></ul>
