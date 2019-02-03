@@ -1,6 +1,6 @@
 const remote = require('electron').remote;
+const {ipcRenderer} = require('electron')
 
-console.log(remote)
 console.log("Node Version: ", process.versions.node)
 console.log("Chrome Version: ", process.versions.chrome)
 console.log("Electron Version:", process.versions.electron)
@@ -203,20 +203,35 @@ window.addEventListener('scroll', function () {
     newScrollPos = scrollPos;
 })
 
-function doSomething() {
+function init() {
     console.info("DOM loaded");
 
     const creditBtn = document.getElementById('creditBtn');
     const feedbackBtn = document.getElementById('feedbackBtn')
 
-    // In renderer process (web page).
-    const {
-        ipcRenderer
-    } = require('electron')
-
     creditBtn.addEventListener('click', function (event) {
         console.log("creditBtn")
         console.log(ipcRenderer.sendSync('synchronous-message', 'showCreditWindow'))
+        // console.log(remote.getCurrentWindow().getChildWindows()[0])
+        // remote.getCurrentWindow().getChildWindows()[0].on('focus', () => {
+        //     // remote.getCurrentWindow().setAlwaysOnTop(true)
+        //     console.log('focus')
+        //  })
+
+
+        //  remote.getCurrentWindow().getChildWindows()[0].on('blur', () => {
+        //     // remote.getCurrentWindow().setAlwaysOnTop(false)
+        //     console.log('blur')
+        //  })
+
+        //  remote.getCurrentWindow().getChildWindows()[0].on('close', () => {
+        //     // remote.getCurrentWindow().setAlwaysOnTop(false)
+        //     console.log('close')
+        //  })        
+        //  remote.getCurrentWindow().getChildWindows()[0].on('click', () => {
+        //     // remote.getCurrentWindow().setAlwaysOnTop(false)
+        //     console.log('click')
+        //  })        
     })
     feedbackBtn.addEventListener('click', function (event) {
         console.log("feedbackBtn")
@@ -226,7 +241,7 @@ function doSomething() {
 
 if (document.readyState === "loading") { // Loading hasn't finished yet
     console.log('DOM loading...')
-    document.addEventListener("DOMContentLoaded", doSomething);
+    document.addEventListener("DOMContentLoaded", init);
 } else { // `DOMContentLoaded` has already fired
-    doSomething();
+    init();
 }

@@ -6,9 +6,9 @@ const path = require('path');
 const url = require('url');
 
 // NOT REQUIRED WHEN BUILDING
-// require('electron-reload')(__dirname, {
-//   electron: require('${__dirname}/../../node_modules/electron')
-// })
+require('electron-reload')(__dirname, {
+  electron: require('${__dirname}/../../node_modules/electron')
+})
 
 app.commandLine.appendSwitch('touch-events', 'enabled');
 
@@ -60,7 +60,8 @@ function createWindow() {
         movable: false,
         autoHideMenuBar: true,
         show: false,
-        frame: false
+        frame: false,
+        titleBarStyle: 'hidden'
       })
 
       childWindow.loadURL(url.format({
@@ -72,6 +73,9 @@ function createWindow() {
       childWindow.once('ready-to-show', () => {
         childWindow.show()
       })
+
+      // NOT REQUIRED WHEN BUILDING
+      // childWindow.webContents.openDevTools();
 
       // return is important (otherwise, window open on only first click)
       event.returnValue = 'creditWindowOpening'

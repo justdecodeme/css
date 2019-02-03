@@ -40,5 +40,12 @@
         <p>Other apps</p>
         <p>xlib xconnect</p> -->
     </div>
+
+    <script>
+        document.addEventListener('click', () => {
+            const remote = require('electron').remote;
+            remote.getCurrentWindow().close();
+        })
+    </script>
 </body>
 </html>
