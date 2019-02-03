@@ -3,6 +3,9 @@
     padding: 0;
     margin: 0;
 }
+*:focus, *:active {
+    outline: none;
+}
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -31,6 +34,31 @@ header {
     z-index: 999;
     top: 0;
 }
+.heading {
+    position: relative;
+}
+.buttons {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.buttons button {
+    cursor: pointer;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 10px;
+    margin-left: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    transition: all 0.3s ease;
+}
+.buttons button:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+.buttons button:active {
+    background: rgba(255, 255, 255, 0.3);
+}
 
 h2 {
     padding: 5px;
@@ -44,10 +72,6 @@ h3 {
     font-size: 14px;
     font-weight: normal;
     letter-spacing: 1px;
-}
-
-ul {
-    /* background: lightgreen; */
 }
 
 .content {
@@ -66,10 +90,6 @@ ul {
     text-align: center;
     font-size: 14px;
     padding: 10px 0;
-}
-.sub-headings li:nth-child(2) {
-    /* border-left: 1px solid white;
-    border-right: 1px solid white; */
 }
 
 .css,

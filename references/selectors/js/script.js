@@ -1,7 +1,15 @@
+const remote = require('electron').remote;
+
+console.log(remote)
+console.log("Node Version: ", process.versions.node)
+console.log("Chrome Version: ", process.versions.chrome)
+console.log("Electron Version:", process.versions.electron)
+
 var inner = '',
     header = document.getElementById('header'),
     ul = document.getElementById('selectorsListing'),
     timer = null;
+
 
 function htmlencode(str) {
     return str.replace(/[&<>"']/g, function ($0) {
@@ -197,6 +205,23 @@ window.addEventListener('scroll', function () {
 
 function doSomething() {
     console.info("DOM loaded");
+
+    const creditBtn = document.getElementById('creditBtn');
+    const feedbackBtn = document.getElementById('feedbackBtn')
+
+    // In renderer process (web page).
+    const {
+        ipcRenderer
+    } = require('electron')
+
+    creditBtn.addEventListener('click', function (event) {
+        console.log("creditBtn")
+        console.log(ipcRenderer.sendSync('synchronous-message', 'showCreditWindow'))
+    })
+    feedbackBtn.addEventListener('click', function (event) {
+        console.log("feedbackBtn")
+        console.log(ipcRenderer.sendSync('synchronous-message', 'showFeedbackWindow'))
+    })
 }
 
 if (document.readyState === "loading") { // Loading hasn't finished yet
