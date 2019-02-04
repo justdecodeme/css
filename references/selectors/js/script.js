@@ -220,11 +220,6 @@ function init() {
 
         document.body.classList.add('loading');
         console.log(ipcRenderer.sendSync('synchronous-message', 'showFeedbackWindow'))
-        // setTimeout(() => {
-        //     if (ipcRenderer.sendSync('synchronous-message', 'showFeedbackWindow')) {
-        //         document.body.classList.remove('loading');
-        //     }
-        // });
     })
 }
 

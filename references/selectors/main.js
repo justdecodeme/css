@@ -31,7 +31,7 @@ function createWindow() {
   }));
 
   // NOT REQUIRED WHEN BUILDING
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   mainWindow.setMenu(null);
   mainWindow.maximize();
