@@ -213,25 +213,7 @@ function init() {
         console.log("creditBtn")
         console.log(ipcRenderer.sendSync('synchronous-message', 'showCreditWindow'))
         // console.log(remote.getCurrentWindow().getChildWindows()[0])
-        // remote.getCurrentWindow().getChildWindows()[0].on('focus', () => {
-        //     // remote.getCurrentWindow().setAlwaysOnTop(true)
-        //     console.log('focus')
-        //  })
-
-
-        //  remote.getCurrentWindow().getChildWindows()[0].on('blur', () => {
-        //     // remote.getCurrentWindow().setAlwaysOnTop(false)
-        //     console.log('blur')
-        //  })
-
-        //  remote.getCurrentWindow().getChildWindows()[0].on('close', () => {
-        //     // remote.getCurrentWindow().setAlwaysOnTop(false)
-        //     console.log('close')
-        //  })        
-        //  remote.getCurrentWindow().getChildWindows()[0].on('click', () => {
-        //     // remote.getCurrentWindow().setAlwaysOnTop(false)
-        //     console.log('click')
-        //  })        
+        // console.log(remote.BrowserWindow.getFocusedWindow())
     })
     feedbackBtn.addEventListener('click', function (event) {
         console.log("feedbackBtn")

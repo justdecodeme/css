@@ -5,47 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Credits</title>
-    <style>
-        body {
-            height: 100vh;
-            background: #ff8300;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100vw;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            font-family: sans-serif;
-            color: white;    
-            line-height: 1;
-            user-select: none; 
-            cursor: default;       
-        }
-        .design {
-            font-size: 20px;
-            margin-bottom: 0;
-        }
-        .name {
-            font-size: 26px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <link rel="stylesheet" href="css/credit.css">
 </head>
 <body>
     <div class="content">
-        <p class="design">Designing & Development</p>
-        <p class="name">Rakesh Kumar</p>
-        <!-- <p>Connect</p>
-        <p>f i t l</p>
-        <p>Other apps</p>
-        <p>xlib xconnect</p> -->
+        <h1 class="design">Designing & Development</h1>
+        <h2 class="name">Rakesh Kumar</h2>
+        <h1 class="connect">Connect</h1>
+        <ul class="social">
+            <li><a href="https://www.facebook.com/justdecodeme" class="fb"><i class="fab fa-facebook-square"></i></a></li>
+            <li><a href="https://www.linkedin.com/in/justdecodeme" class="ln"><i class="fab fa-linkedin"></i></a></li>
+            <li><a href="https://www.instagram.com/justdecodeme" class="ig"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="https://twitter.com/justdecodeme" class="tw"><i class="fab fa-twitter-square"></i></a></li>
+        </ul>
     </div>
 
     <script>
-        document.addEventListener('click', () => {
-            const remote = require('electron').remote;
-            remote.getCurrentWindow().close();
-        })
+        // const remote = require('electron').remote;
+        // document.addEventListener('click', () => {
+        //     remote.getCurrentWindow().close();
+        // })
+
+        const shell = require('electron').shell;
+        window.$ = window.jQuery = require('jquery');
+
+        // assuming $ is jQuery
+        $(document).on('click', 'a[href^="http"]', function(event) {
+            console.log('clicked')
+            event.preventDefault();
+            shell.openExternal(this.href);
+        });        
     </script>
 </body>
 </html>

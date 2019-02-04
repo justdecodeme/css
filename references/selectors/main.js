@@ -31,7 +31,7 @@ function createWindow() {
   }));
 
   // NOT REQUIRED WHEN BUILDING
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   mainWindow.setMenu(null);
   mainWindow.maximize();
@@ -53,14 +53,15 @@ function createWindow() {
         parent: mainWindow,
         modal: true,
         title: "Credit",
-        width: 500,
+        width: 400,
         height: 400,
         backgroundColor: 'red',
         resizable: false,
         movable: false,
         autoHideMenuBar: true,
         show: false,
-        frame: false,
+        // frame: false,
+        minimizable: false,
         titleBarStyle: 'hidden'
       })
 
