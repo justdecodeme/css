@@ -1,5 +1,7 @@
 const remote = require('electron').remote;
-const {ipcRenderer} = require('electron')
+const {
+    ipcRenderer
+} = require('electron')
 
 console.log("Node Version: ", process.versions.node)
 console.log("Chrome Version: ", process.versions.chrome)
@@ -212,12 +214,17 @@ function init() {
     creditBtn.addEventListener('click', function (event) {
         console.log("creditBtn")
         console.log(ipcRenderer.sendSync('synchronous-message', 'showCreditWindow'))
-        // console.log(remote.getCurrentWindow().getChildWindows()[0])
-        // console.log(remote.BrowserWindow.getFocusedWindow())
     })
     feedbackBtn.addEventListener('click', function (event) {
         console.log("feedbackBtn")
+
+        document.body.classList.add('loading');
         console.log(ipcRenderer.sendSync('synchronous-message', 'showFeedbackWindow'))
+        // setTimeout(() => {
+        //     if (ipcRenderer.sendSync('synchronous-message', 'showFeedbackWindow')) {
+        //         document.body.classList.remove('loading');
+        //     }
+        // });
     })
 }
 
@@ -227,3 +234,7 @@ if (document.readyState === "loading") { // Loading hasn't finished yet
 } else { // `DOMContentLoaded` has already fired
     init();
 }
+
+ipcRenderer.on('app-close', function () {
+    document.body.classList.remove('loading');
+});

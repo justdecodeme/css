@@ -93,16 +93,29 @@ function createWindow() {
         height: 700,
         backgroundColor: 'red',
         resizable: false,
-        movable: false,
+        // movable: false,
         autoHideMenuBar: true,
-        show: true
+        show: false
       })
 
       childWindow.loadURL("https://goo.gl/forms/JWz7jGuwAVYOvvaz1");
 
       childWindow.once('ready-to-show', () => {
         childWindow.show()
+        mainWindow.webContents.send('app-close');
       })
+      
+      // childWindow.webContents.on('did-finish-load', function() {
+      //   console.log('finished loading')
+      // })
+      
+      childWindow.on('close', function () {
+        // console.log('closedddd')
+        childWindow = null;
+      });
+
+      // NOT REQUIRED WHEN BUILDING
+      // childWindow.webContents.openDevTools();
 
       // return is important (otherwise, window open on only first click)
       event.returnValue = 'feedbackWindowOpening'
