@@ -1,5 +1,5 @@
 const electron = require('electron');
-const { ipcMain } = require('electron');
+const { ipcMain, dialog } = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
@@ -96,6 +96,21 @@ function createWindow() {
         // movable: false,
         autoHideMenuBar: true,
         show: false
+      })
+
+      childWindow.webContents.on('will-prevent-unload', (event) => {
+        const choice = dialog.showMessageBox(childWindow, {
+          type: 'question',
+          buttons: ['Leave', 'Stay'],
+          title: 'Do you want to leave this site?',
+          message: 'Changes you made may not be saved.',
+          defaultId: 1,
+          cancelId: 1
+        })
+        const leave = (choice === 0)
+        if (leave) {
+          event.preventDefault()
+        }
       })
 
       childWindow.loadURL("https://goo.gl/forms/JWz7jGuwAVYOvvaz1");

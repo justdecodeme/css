@@ -1,6 +1,6 @@
 body {
     height: 100vh;
-    background: #ff8300;
+    background: #37a869;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,10 +40,13 @@ li {
 li:first-child {
     margin-left: 0;
 }
-.social a:hover {
-    opacity: 0.8;
+.social a {
+    color: black;
 }
-.fb { color: #3b5998; }
-.ln { color: #0077b5; }
-.ig { color: #517fa4; }
-.tw { color: #55acee; }
+.social a:hover {
+    opacity: 0.6;
+}
+/* .fb:hover { color: #3b5998; }
+.ln:hover { color: #0077b5; }
+.ig:hover { color: #517fa4; }
+.tw:hover { color: #55acee; } */
