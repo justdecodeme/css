@@ -4,6 +4,8 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const url = require('url');
+// const appIcon = new Tray('/icons/png/16x16.png')
+const iconPath = "icons/win/1.ico";
 
 // NOT REQUIRED WHEN BUILDING
 require('electron-reload')(__dirname, {
@@ -21,6 +23,7 @@ function createWindow() {
     minWidth: 800,
     minHeight: 600,
     backgroundColor: 'red',
+    icon: iconPath,
     show: false
   })
 
@@ -61,6 +64,7 @@ function createWindow() {
         autoHideMenuBar: true,
         show: false,
         // frame: false,
+        icon: iconPath,
         minimizable: false,
         titleBarStyle: 'hidden'
       })
@@ -94,19 +98,26 @@ function createWindow() {
         backgroundColor: 'red',
         resizable: false,
         // movable: false,
+        icon: iconPath,
         autoHideMenuBar: true,
         show: false
       })
 
       childWindow.webContents.on('will-prevent-unload', (event) => {
-        const choice = dialog.showMessageBox(childWindow, {
-          type: 'question',
-          buttons: ['Leave', 'Stay'],
-          title: 'Do you want to leave this site?',
-          message: 'Changes you made may not be saved.',
-          defaultId: 1,
-          cancelId: 1
-        })
+
+        const choice = dialog.showMessageBox(new BrowserWindow({
+          show: false,
+          alwaysOnTop: true
+          }),
+          {
+            type: 'question',
+            buttons: ['Leave', 'Stay'],
+            title: 'Do you want to leave this site?',
+            message: 'Changes you made may not be saved.',
+            defaultId: 1,
+            cancelId: 1
+          }
+        )
         const leave = (choice === 0)
         if (leave) {
           event.preventDefault()
