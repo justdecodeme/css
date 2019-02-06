@@ -8,9 +8,9 @@ const url = require('url');
 const iconPath = "icons/win/1.ico";
 
 // NOT REQUIRED WHEN BUILDING
-require('electron-reload')(__dirname, {
-  electron: require('${__dirname}/../../node_modules/electron')
-})
+// require('electron-reload')(__dirname, {
+//   electron: require('${__dirname}/../../node_modules/electron')
+// })
 
 app.commandLine.appendSwitch('touch-events', 'enabled');
 

@@ -12,9 +12,7 @@ body {
     padding-top: 0;
     position: relative;
 }
-body.loading {
-    /* overflow: hidden; */
-}
+
 body.loading:after {
     position: absolute;
     content: "";

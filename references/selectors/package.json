@@ -11,7 +11,7 @@
     "appId": "com.weball.io.css.selectors",
     "productName": "css selectors",
     "copyright": "Copyright ©️ 2019",
-    "asar": false,
+    "asar": true,
     "win": {
       "target": "nsis"
     },
@@ -27,8 +27,8 @@
       "installerIcon": "build/installerIcon.ico",
       "uninstallerIcon": "build/uninstallerIcon.ico",
       "installerHeaderIcon": "build/uninstallerIcon.ico",
-      "installerSidebar": "build/installerSidebar.ico",
-      "uninstallerSidebar": "build/uninstallerSidebar.ico"
+      "installerSidebar": "build/installerSidebar.bmp",
+      "uninstallerSidebar": "build/uninstallerSidebar.bmp"
     }
   },
   "author": "Rakko",
